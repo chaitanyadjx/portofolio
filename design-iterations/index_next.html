@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaitanya // Systems Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #080808;
+            --surface: #111111;
+            --border: #222222;
+            --accent: #ffffff;
+            --muted: #666666;
+            --neon: #3b82f6; /* System Blue */
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: var(--bg); 
+            color: var(--accent); 
+            font-family: 'Space Grotesk', sans-serif; 
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .workspace {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+
+        /* Sidebar Profile */
+        aside {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .profile-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+        }
+
+        .status-dot {
+            width: 8px; height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+            box-shadow: 0 0 10px #10b981;
+        }
+
+        .name { font-size: 1.5rem; font-weight: 700; margin: 1rem 0 0.5rem; letter-spacing: -1px; }
+        .role { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
+        
+        .stack-tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin: 0 4px 6px 0;
+            color: var(--muted);
+        }
+
+        /* Main Nav & Content */
+        main { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        nav {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            display: flex;
+            gap: 0.5rem;
+            position: sticky;
+            top: 2rem;
+            z-index: 100;
+        }
+
+        nav button {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            padding: 0.6rem 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        nav button.active {
+            background: var(--border);
+            color: var(--accent);
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .content-section.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Grid Cards */
+        .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .data-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            transition: 0.3s;
+        }
+        .data-card:hover { border-color: var(--neon); }
+
+        /* Logs Styling */
+        .log-entry {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            padding: 1rem;
+            border-left: 2px solid var(--border);
+            margin-bottom: 1rem;
+        }
+        .log-date { color: var(--neon); margin-bottom: 4px; display: block; }
+
+        /* Experience Timeline */
+        .exp-item {
+            margin-bottom: 2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .exp-item::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 5px;
+            width: 10px; height: 10px;
+            background: var(--neon);
+            border-radius: 50%;
+        }
+
+        @media (max-width: 900px) {
+            .workspace { grid-template-columns: 1fr; }
+            aside { position: relative; top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="workspace">
+        <aside>
+            <div class="profile-card">
+                <div><span class="status-dot"></span><span style="font-size: 0.7rem; color: var(--muted); font-family: 'JetBrains Mono';">AVAILABLE FOR PROJECTS</span></div>
+                <h1 class="name">Chaitanya</h1>
+                <p class="role">Backend & Systems • IIITDMK '27</p>
+                
+                <div style="margin-top: 1rem;">
+                    <div class="stack-tag">Go</div>
+                    <div class="stack-tag">Kafka</div>
+                    <div class="stack-tag">PostgreSQL</div>
+                    <div class="stack-tag">Redis</div>
+                    <div class="stack-tag">Docker</div>
+                    <div class="stack-tag">AWS</div>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <nav id="mainNav">
+                <button class="active" onclick="showTab('projects')">PROJECTS</button>
+                <button onclick="showTab('experience')">EXPERIENCE</button>
+                <button onclick="showTab('design')">DESIGN</button>
+                <button onclick="showTab('logs')">LOGS</button>
+            </nav>
+
+            <section id="projects" class="content-section active">
+                <div class="card-grid">
+                    <div class="data-card">
+                        <h3 style="margin-bottom: 10px;">Shadowstream</h3>
+                        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 15px;">CDC system for real-time Postgres to Kafka streaming via Protobuf.</p>
+                        <a href="#" style="color: var(--neon); text-decoration: none; font-size: 0.8rem;">View Source ↗</a>
+                    </div>
+                    <div class="data-card">
+                        <h3 style="margin-bottom: 10px;">GopherDB</h3>
+                        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 15px;">LSM-tree based key-value store with custom WAL and SSTables.</p>
+                        <a href="#" style="color: var(--neon); text-decoration: none; font-size: 0.8rem;">View Source ↗</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience" class="content-section">
+                <div class="data-card">
+                    <div class="exp-item">
+                        <h4 style="font-size: 1rem;">Backend Dev Intern // Future Corp</h4>
+                        <span style="font-size: 0.8rem; color: var(--muted);">AUG 2025 - PRESENT</span>
+                        <p style="margin-top: 10px; font-size: 0.85rem; color: var(--muted);">Optimizing data pipelines and microservices using Go and gRPC.</p>
+                    </div>
+                    <div class="exp-item" style="margin-bottom: 0;">
+                        <h4 style="font-size: 1rem;">Open Source Contributor // CNCF</h4>
+                        <span style="font-size: 0.8rem; color: var(--muted);">MAY 2025 - JULY 2025</span>
+                        <p style="margin-top: 10px; font-size: 0.85rem; color: var(--muted);">Working on the Go ecosystem projects for GSoC 2026 prep.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="design" class="content-section">
+                <div class="card-grid">
+                    <div class="data-card">
+                        <div style="height: 120px; background: var(--border); border-radius: 4px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--muted);">[SYSTEM_ARCH_DIAGRAM_01]</div>
+                        <h4>High-Availability Kafka Cluster</h4>
+                        <p style="font-size: 0.8rem; color: var(--muted);">A blueprint for zero-downtime message streaming.</p>
+                    </div>
+                    <div class="data-card">
+                        <div style="height: 120px; background: var(--border); border-radius: 4px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--muted);">[UI_UX_DRAFT_22]</div>
+                        <h4>Terminal-Centric Dashboard</h4>
+                        <p style="font-size: 0.8rem; color: var(--muted);">UI design for low-latency system monitoring.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="logs" class="content-section">
+                <div class="log-entry">
+                    <span class="log-date">DEC 20, 2025</span>
+                    <p>Successfully implemented SSTable compaction in GopherDB. Write throughput increased by 14%.</p>
+                </div>
+                <div class="log-entry">
+                    <span class="log-date">DEC 18, 2025</span>
+                    <p>Started deep dive into GATE DA syllabus. Linear Algebra concepts are proving vital for database indexing proofs.</p>
+                </div>
+                <div class="log-entry">
+                    <span class="log-date">DEC 15, 2025</span>
+                    <p>Testing Kafka consumer lag under peak load simulation. Identified a bottleneck in the Protobuf marshalling layer.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Deactivate all buttons
+            document.querySelectorAll('#mainNav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show target section and activate button
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
